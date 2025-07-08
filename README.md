@@ -1,2 +1,2 @@
 # GreenHarvest
-Sitio Web, realizado en PHP con Symfony. "GreenHarvest" combina &lt;green> (sostenibilidad, salud) + &lt;harvest> (cosecha, frescura). 
+Sitio Web entorno PRE PRODUCCION de GreenHarvest, Realizado en PHP con Symfony
