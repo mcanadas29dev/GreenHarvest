@@ -1,2 +1,2 @@
 # GreenHarvest
-Sitio Web entorno PRE PRODUCCION de GreenHarvest, Realizado en PHP con Symfony
+Sitio Web entorno PRODUCCION de GreenHarvest, Realizado en PHP con Symfony
