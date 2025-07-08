@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+{% block title %}Listado de Categorías{% endblock %}
+{% block body %}
+<div class="uk-container uk-margin-large-top">
+
+    <h2 class="uk-heading-line"><span>Categorías</span></h2>
+    <div class="uk-margin-bottom">
+        <a href="{{ path('app_categoria_new') }}" class="uk-button uk-button-primary">Nueva Categoría</a>
+    </div>
+
+    {% if categorias.items is empty %}
+        <div class="uk-alert-warning" uk-alert>No hay categorías.</div>
+    {% else %}
+        <table class="uk-table uk-table-divider uk-table-hover uk-table-striped">
+            <thead><tr><th>ID</th><th>Nombre</th><th>Descripción</th><th>Foto</th><th>Acciones</th></tr></thead>
+            <tbody>
+            {% for cat in categorias.items %}
+                <tr>
+                    <td>{{ cat.id }}</td>
+                    <td>{{ cat.nombre }}</td>
+                    <td>{{ cat.descripcionCorta|length > 50 ? cat.descripcionCorta[:50]~'…' : cat.descripcionCorta }}</td>
+                    <td>
+                        {% if cat.foto %}
+                            <img src="{{ asset('uploads/categorias/'~cat.foto) }}" width="50">
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{{ path('app_categoria_edit',{id:cat.id}) }}" class="uk-button uk-button-default uk-button-small">Editar</a>
+                        <form method="post" action="{{ path('app_categoria_delete',{id:cat.id}) }}" style="display:inline"
+                              onsubmit="return confirm('¿Eliminar categoría?');">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete'~cat.id) }}">
+                            <button class="uk-button uk-button-danger uk-button-small">Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <ul class="uk-pagination uk-flex-center" uk-margin>
+            {% if categorias.getCurrentPageNumber() > 1 %}
+                <li><a href="{{ path('app_categoria_index',{page:categorias.getCurrentPageNumber()-1}) }}">&lt;</a></li>
+            {% endif %}
+            {% for p in 1..categorias.getPageCount() %}
+                <li class="{{ p == categorias.getCurrentPageNumber() ? 'uk-active' : '' }}">
+                    <a href="{{ path('app_categoria_index',{page:p}) }}">{{ p }}</a>
+                </li>
+            {% endfor %}
+            {% if categorias.getCurrentPageNumber() < categorias.getPageCount() %}
+                <li><a href="{{ path('app_categoria_index',{page:categorias.getCurrentPageNumber()+1}) }}">&gt;</a></li>
+            {% endif %}
+        </ul>
+    {% endif %}
+</div>
+{% endblock %}

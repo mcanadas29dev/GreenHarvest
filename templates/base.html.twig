@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}GreenHarvest{% endblock %}</title>
+
+    <link rel="icon" href="data:image/svg+xml,
+    <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'>
+        <text y='1.2em' font-size='96'>⚫️</text>
+        <text y='1.3em' x='0.2em' font-size='76' fill='#fff'>sf</text>
+    </svg>">
+
+    {# UIkit CSS #}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.20.3/dist/css/uikit.min.css" />
+
+    {% block stylesheets %}{% endblock %}
+</head>
+<body>
+
+    {% block header %}
+        <header class="uk-background-muted uk-padding-small">
+            <div class="uk-container">
+                <div class="uk-flex uk-flex-middle uk-flex-between uk-grid-small" uk-grid>
+
+                    {# LOGO a la izquierda #}
+                    <div class="uk-width-expand">
+                        <div class="uk-text-bold uk-text-large" style="color: green;">
+                            GreenHarvest
+                        </div>
+                    </div>
+
+                    {# BUSCADOR centrado #}
+                    <div class="uk-width-auto">
+                        <form method="get" action="#" class="uk-search uk-search-default">
+                            <span uk-search-icon></span>
+                            <input class="uk-search-input" type="search" name="q" placeholder="Buscar productos..." style="width: 250px;">
+                       
+                        </form>
+                       
+                    </div>
+
+                    {# Elementos a la derecha (idioma, login, cesta) #}
+                    <div class="uk-width-auto uk-flex uk-flex-middle uk-flex-right uk-gap-small">
+                        <select class="uk-select " name="language">
+                            <option value="es">ES </option>
+                            <option value="en">EN </option>
+                        </select>
+
+                        <a href="{{ path('app_user_index')}}" class="uk-button uk-button-text">Identifícate</a>
+
+                        <a href="{{ path('app_rol_index')}}" class="uk-button">
+                            🛒 
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
+    {% endblock %}
+
+    {% block navigation %}
+
+        <nav class="uk-navbar-container uk-background-default" uk-navbar>
+            <div class="uk-container">
+                <ul class="uk-subnav uk-subnav-pill uk-flex-center uk-margin-remove">
+                    <li><a href="{{ path('app_home') }}" class="uk-button">Home</a></li>
+                    <li><a href="{{ path('app_tienda') }}" class="uk-button uk-button-text">Tienda</a></li>
+                    <li><a href="#" class="uk-button uk-button-text">Lo más vendido</a></li>
+                    <li><a href="#" class="uk-button uk-button-text">Últimas novedades</a></li>
+                    <li><a href="#" class="uk-button uk-button-text">Ofertas</a></li>
+                    <li>
+                        <a href="#" class="uk-button uk-button-text">Administración <span uk-icon="icon: triangle-down"></span></a>
+                        <div class="uk-navbar-dropdown">
+                            <ul class="uk-nav uk-navbar-dropdown-nav">
+                                <li><a href="{{ path('app_rol_index') }}" class="uk-button uk-button-text">Roles</a></li>
+                                <li><a href="{{ path('app_user_index') }}" class="uk-button uk-button-text">Usuarios</a></li>
+                                <li><a href="{{ path('app_categoria_index') }}" class="uk-button uk-button-text">Categorías</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+  
+            </div>
+        </nav>
+    {% endblock %}
+
+    {% block body %}
+
+   
+    {% endblock %}
+
+    {% block footer %}
+        <footer class="uk-section uk-section-small uk-text-center uk-background-muted uk-margin-top">
+            <div class="uk-container">
+                <p>&copy; {{ "now"|date("Y") }} GreenHarvest. Todos los derechos reservados.</p>
+            </div>
+        </footer>
+    {% endblock %} 
+
+    {% block javascripts %}
+        {# UIkit JS #}
+        <script src="https://cdn.jsdelivr.net/npm/uikit@3.20.3/dist/js/uikit.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/uikit@3.20.3/dist/js/uikit-icons.min.js"></script>
+    {% endblock %}
+</body>
+</html>

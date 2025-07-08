@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Crear Usuario{% endblock %}
+
+{% block body %}
+<div class="uk-container uk-margin-large-top">
+    <h2>Crear Usuario</h2>
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button class="uk-button uk-button-primary">Guardar</button>
+    {{ form_end(form) }}
+    <a href="{{ path('app_user_index') }}">Volver al listado</a>
+</div>
+{% endblock %}

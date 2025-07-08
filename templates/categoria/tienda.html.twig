@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tienda{% endblock %}
+
+{% block body %}
+<div class="uk-container uk-margin-large-top">
+
+    <h2 class="uk-heading-line"><span>Todas las Categorías</span></h2>
+
+    <div class="uk-child-width-1-3@m uk-grid-match uk-grid-small" uk-grid>
+        {% for categoria in categorias %}
+            <div>
+                <div class="uk-card uk-card-default uk-card-hover uk-card-body">
+                    {% if categoria.foto %}
+                        <div class="uk-card-media-top">
+                            <img src="{{ asset('uploads/categorias/' ~ categoria.foto) }}" alt="{{ categoria.nombre }}">
+                        </div>
+                    {% endif %}
+                    <h3 class="uk-card-title">{{ categoria.nombre }}</h3>
+                    <p>{{ categoria.descripcionCorta|length > 100 ? categoria.descripcionCorta[:100] ~ '…' : categoria.descripcionCorta }}</p>
+                    <a href="{{ path('app_categoria_show', {id: categoria.id}) }}" class="uk-button uk-button-primary">
+                        Ver productos
+                    </a>
+                </div>
+            </div>
+        {% else %}
+            <p class="uk-alert uk-alert-warning">No hay categorías registradas.</p>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inicio | GreenHarvest{% endblock %}
+
+
+
+{% block body %}
+<div class="uk-container uk-margin-large-top">
+
+    <h1 class="uk-text-center uk-heading-medium uk-margin-large-bottom" data-cy="titulo-home">
+        ¡Bienvenido a GreenHarvest!
+    </h1>
+
+    <div class="uk-child-width-1-2@s uk-child-width-1-3@m uk-grid-match" uk-grid data-cy="categoria-grid">
+        {% for categoria in categorias %}
+            <div data-cy="categoria-card-{{ categoria.id }}">
+                <div class="uk-card uk-card-default uk-card-hover uk-card-small">
+                    <div class="uk-card-media-top">
+                        {% if categoria.foto %}
+                            <img src="{{ asset('uploads/categorias/' ~ categoria.foto) }}" alt="{{ categoria.nombre }}" class="uk-border-rounded-top" style="object-fit: cover; height: 200px; width: 100%;">
+                        {% else %}
+                            <div class="uk-placeholder uk-height-medium uk-flex uk-flex-center uk-flex-middle">Sin imagen</div>
+                        {% endif %}
+                    </div>
+                    <div class="uk-card-body">
+                        <h3 class="uk-card-title" data-cy="categoria-nombre">{{ categoria.nombre }}</h3>
+                        <p class="uk-text-small" data-cy="categoria-descripcion">
+                            {{ categoria.descripcionCorta|length > 100 ? categoria.descripcionCorta|slice(0, 100) ~ '…' : categoria.descripcionCorta }}
+                        </p>
+                        <a href="{{ path('app_categoria_ver', {id: categoria.id}) }}" class="uk-button uk-button-primary uk-button-small uk-width-1-1" data-cy="btn-ver-categoria">
+                            Ver productos
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}
+
+

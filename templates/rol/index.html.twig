@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+{% block title %}Listado de Roles{% endblock %}
+
+{% block body %}
+<div class="uk-container uk-margin-large-top">
+
+    <h2 class="uk-heading-line"><span>Listado de Roles</span></h2>
+
+    <div class="uk-margin-bottom">
+        <a href="{{ path('app_rol_new') }}" class="uk-button uk-button-primary" data-cy="btn-nuevo-rol">Nuevo Rol</a>
+    </div>
+
+    {% if roles is empty %}
+        <div class="uk-alert-warning" uk-alert data-cy="alert-no-roles">
+            <p>No hay roles registrados.</p>
+        </div>
+    {% else %}
+        <table class="uk-table uk-table-divider uk-table-hover uk-table-striped" data-cy="tabla-roles">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for rol in roles %}
+                    <tr data-cy="fila-rol" data-id="{{ rol.id }}">
+                        <td data-cy="rol-id">{{ rol.id }}</td>
+                        <td data-cy="rol-nombre">{{ rol.nombre }}</td>
+                        <td>
+                            <a href="{{ path('app_rol_edit', {id: rol.id}) }}"
+                               class="uk-button uk-button-default uk-button-small"
+                               data-cy="btn-editar-rol-{{ rol.id }}">
+                                Editar
+                            </a>
+                            <form method="post"
+                                  action="{{ path('app_rol_delete', {id: rol.id}) }}"
+                                  onsubmit="return confirm('¿Eliminar rol?');"
+                                  style="display:inline;"
+                                  data-cy="form-eliminar-rol-{{ rol.id }}">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ rol.id) }}">
+                                <button class="uk-button uk-button-danger uk-button-small"
+                                        data-cy="btn-eliminar-rol-{{ rol.id }}">
+                                    Eliminar
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+
+</div>
+{% endblock %}
